@@ -10,15 +10,23 @@ public class Zithub {
         hub = new HashMap<>();
     }
 
-    public int addEntry() {
+    public int add(String path) {
+        if (path.contains("/")) {
+            String[] temp = path.split("/");
+            String name = temp[temp.length - 1];
+
+            hub.put(name, path);
+            return 1;
+        }
+
         return -1;
     }
 
-    public int removeEntry() {
+    public int remove() {
         return -1;
     }
 
-    public int removeEntry(String[] args) {
+    public int remove(String[] args) {
         return -1;
     }
 

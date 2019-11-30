@@ -30,9 +30,6 @@ public class Terminal {
             end = true;
         } else if (cmd.startsWith("add")) {
             String path = cmd.substring(4);
-
-
-
         } else if (cmd.startsWith("remove")) {
 
         }
