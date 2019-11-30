@@ -30,11 +30,33 @@ public class Terminal {
             end = true;
         } else if (cmd.startsWith("add")) {
             String path = cmd.substring(4);
+
         } else if (cmd.startsWith("remove")) {
+
+
+        } else if (cmd.startsWith("show")) {
+            cmdShow(cmd);
+
+        } else if (cmd.startsWith("zip")) {
 
         }
 
         return returnValue;
     }
+
+    private static void cmdShow(String arg) {
+        System.out.println("On Zithub content\n\n");
+
+        if (arg.substring(4).startsWith("-n")) {
+            System.out.println(zh.show("-n"));
+
+        } else if (arg.substring(4).startsWith("-f") || arg.equals("show")) {
+            System.out.println(zh.show("-f"));
+
+        } else {
+            System.out.println("\tZithub is empty!");
+        }
+    }
+
 
 }
