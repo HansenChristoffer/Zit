@@ -47,7 +47,23 @@ public class Zithub {
     }
 
     public String show(String para) {
-        return "";
+        String returnValue = "";
+
+        if (para.equals("-f")) {
+            for (String value :
+                    hub.values()) {
+                returnValue = returnValue.concat(value + "\n");
+            }
+
+        } else if (para.equals("-n")) {
+
+            for (String key :
+                    hub.keySet()) {
+                returnValue = returnValue.concat(key + "\n");
+            }
+        }
+
+        return returnValue;
     }
 
     public int zip(String destination) {
