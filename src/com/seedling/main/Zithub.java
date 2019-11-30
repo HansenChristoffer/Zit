@@ -23,7 +23,8 @@ public class Zithub {
     }
 
     public int remove() {
-        return -1;
+        hub.clear();
+        return 1;
     }
 
     public int remove(String[] args) {
