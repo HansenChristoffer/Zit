@@ -1,5 +1,6 @@
 package com.seedling.main;
 
+import java.io.File;
 import java.util.Scanner;
 
 public class Terminal {
@@ -23,13 +24,12 @@ public class Terminal {
 
     }
 
-    private static int call(String cmd) {
-        int returnValue = -1;
-
+    private static void call(String cmd) {
         if (cmd.equals("exit")) {
             end = true;
         } else if (cmd.startsWith("add")) {
             String path = cmd.substring(4);
+            cmdAdd(path);
 
         } else if (cmd.startsWith("remove")) {
 
@@ -40,17 +40,25 @@ public class Terminal {
         } else if (cmd.startsWith("zip")) {
 
         }
-
-        return returnValue;
     }
 
-    private static void cmdShow(String arg) {
+    private static void cmdAdd(String argu) {
+        File f = new File(argu);
+
+        if (f.exists()) {
+            zh.add(argu);
+        } else {
+            System.out.println("$-> No such file or folder!");
+        }
+    }
+
+    private static void cmdShow(String argu) {
         System.out.println("On Zithub content\n\n");
 
-        if (arg.substring(4).startsWith("-n")) {
+        if (argu.substring(4).startsWith("-n")) {
             System.out.println(zh.show("-n"));
 
-        } else if (arg.substring(4).startsWith("-f") || arg.equals("show")) {
+        } else if (argu.substring(4).startsWith("-f") || argu.equals("show")) {
             System.out.println(zh.show("-f"));
 
         } else {
