@@ -1,6 +1,9 @@
 package com.seedling.main;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Zithub {
 
@@ -27,8 +30,20 @@ public class Zithub {
         return 1;
     }
 
-    public int remove(String[] args) {
-        return -1;
+    public List<String> remove(String[] args) {
+        List<String> keysNotFound = new ArrayList<>();
+
+        if (args.length > 0) {
+            for (String key : args) {
+                try {
+                    hub.remove(key);
+                } catch(Exception e) {
+                    keysNotFound.add(key);
+                }
+            }
+        }
+
+        return keysNotFound;
     }
 
     public String show(String para) {
