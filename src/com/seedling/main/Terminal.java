@@ -7,10 +7,9 @@ public class Terminal {
 
     private static final Scanner in = new Scanner(System.in);
     private static boolean end = false;
-    private static Zithub zh;
+    private static Zithub zh = new Zithub();
 
     public Terminal() {
-        Zithub zh = new Zithub();
     }
 
     public static void start() {
@@ -28,8 +27,14 @@ public class Terminal {
         if (cmd.equals("exit")) {
             end = true;
         } else if (cmd.startsWith("add")) {
-            String path = cmd.substring(4);
-            cmdAdd(path);
+            String path = cmd.substring(3);
+            path = path.replaceFirst(" ", "");
+
+            if (!path.isEmpty()) {
+                cmdAdd(path);
+            } else {
+                System.out.println("$-> Path to file or folder not given!");
+            }
 
         } else if (cmd.startsWith("remove")) {
 
@@ -53,16 +58,19 @@ public class Terminal {
     }
 
     private static void cmdShow(String argu) {
-        System.out.println("On Zithub content\n\n");
+        System.out.println("On Zithub content\n");
 
-        if (argu.substring(4).startsWith("-n")) {
+        if (argu.equals("show")) {
+            System.out.println(zh.show("-f"));
+        }
+        else if (argu.substring(5).startsWith("-n")) {
             System.out.println(zh.show("-n"));
 
-        } else if (argu.substring(4).startsWith("-f") || argu.equals("show")) {
+        } else if (argu.substring(5).startsWith("-f")) {
             System.out.println(zh.show("-f"));
 
         } else {
-            System.out.println("\tZithub is empty!");
+            System.out.println("\tZithub is empty!\n\n");
         }
     }
 

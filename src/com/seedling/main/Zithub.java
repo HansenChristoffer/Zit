@@ -6,10 +6,9 @@ import java.util.List;
 
 public class Zithub {
 
-    private HashMap<String, String> hub;
+    private HashMap<String, String> hub = new HashMap<>();
 
     public Zithub() {
-        hub = new HashMap<>();
     }
 
     public int add(String path) {
