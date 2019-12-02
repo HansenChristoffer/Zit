@@ -2,7 +2,6 @@ package com.seedling.main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Zithub {
 
@@ -16,6 +15,10 @@ public class Zithub {
             String[] temp = path.split("/");
             String name = temp[temp.length - 1];
 
+            if (hub.containsKey(name)) {
+                name = name.concat("[" + ((int) (Math.random() * 1000) + 1) + "]");
+            }
+
             hub.put(name, path);
             return 1;
         }
@@ -28,14 +31,14 @@ public class Zithub {
         return 1;
     }
 
-    public List<String> remove(String[] args) {
-        List<String> keysNotFound = new ArrayList<>();
+    public ArrayList<String> remove(String[] args) {
+        ArrayList<String> keysNotFound = new ArrayList<>();
 
         if (args.length > 0) {
             for (String key : args) {
-                try {
+                if (hub.containsKey(key)) {
                     hub.remove(key);
-                } catch(Exception e) {
+                } else {
                     keysNotFound.add(key);
                 }
             }
@@ -54,7 +57,6 @@ public class Zithub {
             }
 
         } else if (para.equals("-n")) {
-
             for (String key :
                     hub.keySet()) {
                 returnValue = returnValue.concat(key + "\n");
