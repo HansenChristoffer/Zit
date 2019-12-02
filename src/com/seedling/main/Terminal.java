@@ -39,11 +39,14 @@ public class Terminal {
         } else if (cmd.startsWith("remove")) {
 
 
-        } else if (cmd.startsWith("show")) {
+        } else if (cmd.equals("show") ||
+                cmd.startsWith("show") && (cmd.substring(5).startsWith("-f") || cmd.substring(5).startsWith("-n"))) {
             cmdShow(cmd);
 
         } else if (cmd.startsWith("zip")) {
 
+        } else {
+            System.out.println("$-> No such command!");
         }
     }
 
@@ -58,7 +61,7 @@ public class Terminal {
     }
 
     private static void cmdShow(String argu) {
-        System.out.println("On Zithub content\n");
+        System.out.println("\nOn Zithub content\n");
 
         if (argu.equals("show")) {
             System.out.println(zh.show("-f"));
