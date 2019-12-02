@@ -5,9 +5,24 @@ import java.util.HashMap;
 
 public class Zithub {
 
-    private HashMap<String, String> hub = new HashMap<>();
+    private HashMap<String, Zit> hub = new HashMap<>();
 
     public Zithub() {
+    }
+
+    private void checkDuplicates() {
+        String compareString = "@NULL";
+
+        for (Zit entry :
+                hub.values()) {
+            if (entry.getValue().startsWith(compareString) || entry.getValue().endsWith(compareString)) {
+
+
+            }
+
+        }
+
+
     }
 
     public int add(String path) {
@@ -19,7 +34,7 @@ public class Zithub {
                 name = name.concat("[" + ((int) (Math.random() * 1000) + 1) + "]");
             }
 
-            hub.put(name, path);
+            hub.put(name, new Zit(name, path));
             return 1;
         }
 
@@ -51,9 +66,9 @@ public class Zithub {
         String returnValue = "";
 
         if (para.equals("-f")) {
-            for (String value :
+            for (Zit value :
                     hub.values()) {
-                returnValue = returnValue.concat(value + "\n");
+                returnValue = returnValue.concat(value.getValue() + "\n");
             }
 
         } else if (para.equals("-n")) {
