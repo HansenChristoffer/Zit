@@ -16,13 +16,9 @@ public class Zithub {
         for (Zit entry :
                 hub.values()) {
             if (entry.getValue().startsWith(compareString) || entry.getValue().endsWith(compareString)) {
-
-
+                
             }
-
         }
-
-
     }
 
     public int add(String path) {
