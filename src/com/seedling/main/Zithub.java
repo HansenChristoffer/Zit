@@ -1,5 +1,10 @@
 package com.seedling.main;
 
+import net.lingala.zip4j.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
+import net.lingala.zip4j.progress.ProgressMonitor;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,17 +13,6 @@ public class Zithub {
     private HashMap<String, Zit> hub = new HashMap<>();
 
     public Zithub() {
-    }
-
-    private void checkDuplicates() {
-        String compareString = "@NULL";
-
-        for (Zit entry :
-                hub.values()) {
-            if (entry.getValue().startsWith(compareString) || entry.getValue().endsWith(compareString)) {
-                
-            }
-        }
     }
 
     public int add(String path) {
@@ -77,8 +71,31 @@ public class Zithub {
         return returnValue;
     }
 
-    public int zip(String destination) {
-        return -1;
+    public int zip(String destination) throws ZipException, InterruptedException {
+        if (!hub.isEmpty()) {
+            System.out.println("\n$-> Commencing archiving Zits..");
+
+            for (Zit zit :
+                    hub.values()) {
+                File path = new File(zit.getValue());
+                ZipFile zipFile = new ZipFile(destination);
+
+                if (path.isFile()) {
+                    System.out.printf("$-> Adding %s file to archive...%n", new File(zit.getValue()).getName());
+                    zipFile.addFile(path);
+                } else if (path.isDirectory()){
+                    System.out.printf("$-> Adding %s folder to archive...%n", new File(zit.getValue()).getName());
+                    zipFile.addFolder(path);
+                }
+
+            }
+            System.out.println("$-> Archiving completed!");
+            return 1;
+
+        } else {
+            System.out.println("E-> Unable to zip Zits!");
+            return -1;
+        }
     }
 
     public int zip(String[] args, String destination) {

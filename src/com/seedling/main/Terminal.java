@@ -1,5 +1,7 @@
 package com.seedling.main;
 
+import net.lingala.zip4j.exception.ZipException;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -46,8 +48,10 @@ public class Terminal {
                 cmd.startsWith("show ") && (cmd.substring(5).startsWith("-f") || cmd.substring(5).startsWith("-n"))) {
             cmdShow(cmd);
 
-        } else if (cmd.startsWith("zip")) {
-
+        } else if (cmd.equals("zip")) {
+            int randomNumber = ((int) (Math.random() * 10000) + 1);
+            String destination = "Zit-[" + randomNumber + "].zip";
+            cmdZip(destination);
         } else {
             System.out.println("$-> No such command!");
         }
@@ -101,12 +105,19 @@ public class Terminal {
 
         if (param.equals("show") || param.equals("show -n")) {
             System.out.println(zh.show("-n"));
-        }
-        else if (param.equals("show -f")) {
+        } else if (param.equals("show -f")) {
             System.out.println(zh.show("-f"));
 
         } else {
             System.out.println("\tZithub is empty!\n\n");
+        }
+    }
+
+    private static void cmdZip(String destination) {
+        try {
+            System.out.println(zh.zip(destination));
+        } catch (InterruptedException | ZipException ioe) {
+            System.err.println(ioe.getMessage());
         }
     }
 
