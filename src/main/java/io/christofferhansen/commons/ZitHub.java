@@ -1,7 +1,7 @@
-package io.christofferhansen;
+package io.christofferhansen.commons;
 
+import io.christofferhansen.xo.Zit;
 import net.lingala.zip4j.ZipFile;
-import net.lingala.zip4j.exception.ZipException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,7 +21,9 @@ public class ZitHub {
     public ZitHub() {
     }
 
-    public int add(String path) {
+    public void add(String path) {
+        // Make it possible to add several files/folders at once, where they are separated by a comma
+
         if (path.contains("/")) {
             String[] temp = path.split("/");
             String name = temp[temp.length - 1];
@@ -31,10 +33,7 @@ public class ZitHub {
             }
 
             hub.put(name, new Zit(name, path));
-            return 1;
         }
-
-        return -1;
     }
 
     public boolean remove() {
@@ -75,19 +74,19 @@ public class ZitHub {
 
         for (Zit e : hub.values()) {
             returnValue.append(String.format("[%s] %s%n",
-                    e.getKey(),
-                    e.getValue()));
+                    e.key(),
+                    e.value()));
         }
 
         return returnValue.toString();
     }
 
-    public int zip(String destination) throws ZipException, InterruptedException {
+    public void zip(String destination) {
         if (!hub.isEmpty()) {
             System.out.println("\n$-> Archiving Zits..");
 
             for (Zit zit : hub.values()) {
-                File path = new File(zit.getValue());
+                File path = new File(zit.value());
                 ZipFile zipFile = null;
 
                 try {
@@ -97,10 +96,10 @@ public class ZitHub {
 
                         if (!basicFileAttributes.isSymbolicLink()) {
                             if (basicFileAttributes.isRegularFile()) {
-                                System.out.printf("$-> Adding %s file to archive...%n", zit.getValue());
+                                System.out.printf("$-> Adding %s file to archive...%n", zit.value());
                                 zipFile.addFile(path);
                             } else if (basicFileAttributes.isDirectory()) {
-                                System.out.printf("$-> Adding %s folder to archive...%n", zit.getValue());
+                                System.out.printf("$-> Adding %s folder to archive...%n", zit.value());
                                 zipFile.addFolder(path);
                             }
                         } else {
@@ -124,16 +123,9 @@ public class ZitHub {
 
             System.out.println("$-> Archiving completed!");
             remove();
-            return 1;
         } else {
             System.out.println("E-> Unable to archive Zits!");
-            return -1;
         }
     }
-
-    public int zip(String[] args, String destination) {
-        return -1;
-    }
-
 
 }

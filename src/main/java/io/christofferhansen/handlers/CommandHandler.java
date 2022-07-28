@@ -1,4 +1,4 @@
-package io.christofferhansen;
+package io.christofferhansen.handlers;
 
 public interface CommandHandler {
 
