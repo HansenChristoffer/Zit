@@ -1,7 +1,6 @@
-package com.seedling.main;
+package io.christofferhansen;
 
 public class Zit {
-
     private final String key;
     private final String value;
 
